@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <meta property="og:image" content="http://maps.bouldercounty.org/boco/ElectionResults2016/images/BocoBrandingImage_use.png" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
     <title>Election Results</title>
@@ -12,8 +12,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.15/esri/css/esri.css">
-    <link rel="stylesheet" type="text/css" href="/boco/ElectionResults2016/css/bootstrapmap.css">
-    <link rel="stylesheet" type="text/css" href="/boco/ElectionResults2016/css/electionResults.css">
+    <link rel="stylesheet" type="text/css" href="/boco/ElectionResults2017/css/bootstrapmap.css">
+    <link rel="stylesheet" type="text/css" href="/boco/ElectionResults2017/css/electionResults.css">
 
     <!-- Detect older unusable browser versions -->
     <script>
@@ -63,7 +63,7 @@
 <!-- Map elements -->
 <div class="container-fluid" style="padding:0px;">
     <div id="mapDiv">
-        <img id="loadingImg" src="/boco/ElectionResults2016/images/loading.gif" />
+        <img id="loadingImg" src="/boco/ElectionResults2017/images/loading.gif" />
     </div>
 </div>
 
@@ -73,18 +73,23 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="http://www.bouldercounty.org/elections/pages/default.aspx">
-                    <img alt="Election Results" src="/boco/ElectionResults2016/images/BocoBrandingImage_use.png">
+                    <img alt="Election Results" src="/boco/ElectionResults2017/images/BocoBrandingImage_use.png">
                 </a>
                 <div class="textArea">
                     <h3 class="HeaderTitle" tabindex="0">Boulder County Election Results</h3>
                     <h4 class="subtitle" tabindex="0"></h4>
                 </div>
-                <!-- <div class="fb-share-button" data-href="http://dotnetdev/maps/BocoElections2010LAT/index.html/boco/ElectionResults2016LAT/index.html" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdotnetdev%2Fmaps%2FElectionResults2016LAT%2Findex.html&amp;src=sdkpreparse">Share</a></div> -->
-                <a class="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fmaps.bouldercounty.org%2Fboco%2FElectionResults2016%2F&amp;src=sdkpreparse"style="cursor: pointer;">
+
+                <a class="fbshare" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fmaps.bouldercounty.org%2Fboco%2FElectionResults2016%2F&quote=2016+Boulder+County+Colorado+Election+Results">
                 </a>
-                <a class="twittershare" href="https://twitter.com/intent/tweet?url=https://twitter.com/intent/tweet?url=http%3A%2F%2Fmaps.bouldercounty.org%2Fboco%2FElectionResults2016%2F&text="style="cursor: pointer;">
+
+                <a class="twittershare" href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fmaps.bouldercounty.org%2Fboco%2FElectionResults2016%2F&text="style="cursor: pointer;">
                 </a>
-                <div class="navbar-logo"></div>
+                <span class="bitlyshare" id="selectBitlyLink" cursor: pointer;>
+                </span>
+                <a href ="https://www.bouldercounty.org/">
+                    <div class="navbar-logo"></div>
+                </a>
                 <button type="button" id="cogButton" class="btn btn-default buttonCog" data-toggle="modal" data-target="#cogModal"><span class="glyphicon glyphicon-cog"></span></button>
             </div>
         </div>
@@ -167,7 +172,7 @@
                     <tr><td>
                         <table class="table" id="overallResultsTable" style="width:100%;">
                             <tr><th style="text-align:left;">Candidate</th><th style="text-align:right;">Votes</th></tr>
-                            <tr><td style="text-align:left;"><img src="/boco/ElectionResults2016/images/transparentPixel.png" class="img-candidate-swatch" style="background-color:#669900;">&nbsp;Candidate1</td><td style="text-align:right;">101</td></tr>
+                            <tr><td style="text-align:left;"><img src="/boco/ElectionResults2017/images/transparentPixel.png" class="img-candidate-swatch" style="background-color:#669900;">&nbsp;Candidate1</td><td style="text-align:right;">101</td></tr>
                         </table>
                     </td></tr>
                     <tr><td style="text-align:right;"><div id="lastUpdatedDateTime"><i>last updated 10/11/2015</i></div></td></tr>
@@ -178,7 +183,7 @@
 </div>
 
 <script type="text/javascript">
-    var package_path = "/boco/ElectionResults2016/js";
+    var package_path = "/boco/ElectionResults2017/js";
     var dojoConfig = {
         packages: [{
             name: "application",
@@ -193,7 +198,7 @@
 
     require(["esri/map",
                 "application/bootstrapmap",
-                //"ElectionResults2016/js/bootstrapmap",
+                //"ElectionResults2017/js/bootstrapmap",
                 "esri/InfoTemplate",
                 "esri/layers/FeatureLayer",
                 "esri/layers/LabelClass",
@@ -288,6 +293,23 @@
                 //var initialExtent = new esri.geometry.Extent(-11712664.266201157, 4873289.976190632, -11699953.668378562, 4886161.8968330715, new esri.SpatialReference({ "wkid": 102100 }));
                 //var initialExtent = new esri.geometry.Extent(-11770000.266201157, 4860000.976190632, -11689953.668378562, 4897000.8968330715, new esri.SpatialReference({ "wkid": 102100 }));
                 var initialExtent = new esri.geometry.Extent(-105.736279, 39.901608, -105.026644, 40.283346, new esri.SpatialReference({ "wkid": 4326 }));
+
+                // click events
+                var el = document.getElementById("selectBitlyLink");
+                el.addEventListener('click', copy, true);
+
+	        // event handler
+	        function copy(e) {
+
+                   // find target element
+                   var t = e.target;
+                   t.text = "http://bit.ly/2tVugmW";
+                       copyToClipboard(t.text);
+                }
+
+                function copyToClipboard(text) {
+                   window.prompt("Bit.ly link to this site -- Copy to clipboard: Ctrl+C", text);
+                }
 
                 loadResults(); // load all election data
 
@@ -671,13 +693,14 @@
                                 precinctsReportedLine.innerHTML = precinctsReportedLine.innerHTML + "<br><i>(includes " + totalVBMPrecincts + " Mandatory Vote by Mail Precinct" + plural + ")</i>";
                             }
                         }
-                        overallResultsTable.innerHTML = "<tr><td align='left'><img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(reportedColor,0.7)  + ";'>&nbsp;Reported</td></tr>" +
-                                "<tr><td align='left'><img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:white'>&nbsp;Not In This Race</td></tr>";
+                        overallResultsTable.innerHTML = "<tr><td align='left'><img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(reportedColor,0.7)  + ";'>&nbsp;Reported</td></tr>" +
+                                "<tr><td align='left'><img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:white'>&nbsp;Not In This Race</td></tr>";
                     } else {
                         raceNameObject = races[raceId];
                         //raceNameLine.innerHTML = "<b>" + raceNameObject["description"] + "</b>";
                         //raceNameLine.innerHTML = "<b>" + raceNameObject["description"] + "</b>" + "<br /><i>For all contest results and reports, view our Election Results section <a href=" + "http://www.bouldercounty.org/elections/results/pages/electionresults2016.aspx" + ">Election Results</a>" + " (opens in a new window)</i>";
-                        raceNameLine.innerHTML = "<b>" + raceNameObject["description"] + "</b>" + "<br /><i>For all contest results and reports, view our <a href=" + "http://www.bouldercounty.org/elections/results/pages/electionresults2016.aspx" + ">Election Results Section</a><br>" + " To see turnout statistics, visit our <a href = 'http://maps.bouldercounty.org/VoterTurnout'>2016 Turnout Map</a></i>";
+                        //raceNameLine.innerHTML = "<b>" + raceNameObject["description"] + "</b>" + "<br /><i>For all contest results and reports, view our <a href=" + "http://www.bouldercounty.org/elections/results/pages/electionresults2016.aspx" + ">Election Results Section</a><br>" + " To see turnout statistics, visit our <a href = 'http://maps.bouldercounty.org/VoterTurnout'>2016 Turnout Map</a></i>";
+                        raceNameLine.innerHTML = "<b>" + raceNameObject["description"] + "</b>" + "<br /><i>See the<a href=" + "http://www.bouldercounty.org/elections/results/pages/electionresults2016.aspx" + ">Election Results Section</a><br>" + " for detailed precinct results and related reports." + " To see turnout statistics, visit our <a href = 'http://maps.bouldercounty.org/VoterTurnout'>2016 Turnout Map</a></i>";
                         var totalRptdPrecincts = getTotalReportedPrecinctsForRace(raceId);
                         var totalVBMPrecinctsForRace = getTotalReportedVBMForRace(raceId);
                         var totalPrecincts = getTotalPrecinctsForRace(raceId);
@@ -696,10 +719,10 @@
                             }
                         }
                         if (yesNoVoteRace(raceId)) {
-                            percentageRequiredToPassLine.innerHTML = "<font style='color:red;'>" + raceNameObject["percentagePassDisplayMessage"] + "</font>";
+                            percentageRequiredToPassLine.innerHTML = ""; //"<font style='color:red;'>" + raceNameObject["percentagePassDisplayMessage"] + "</font>";
                             //percentageRequiredToPassLine.classList.remove("hidden");
                             // for older OS Compatibility
-                            percentageRequiredToPassLine.className = "";
+                            percentageRequiredToPassLine.className = "hidden"; //"";
                         } else {
                             percentageRequiredToPassLine.innerHTML = "";
                             //percentageRequiredToPassLine.classList.add("hidden");
@@ -715,11 +738,11 @@
                     var rowText = "";
                     for (k in sortedCandidatesList) {
                         var currCand = sortedCandidatesList[k];
-                        rowText += "<tr><td align='left'><img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(currCand["color"],0.7) + ";'>&nbsp;<small>" + currCand["name"] + "</small></td><td style='text-align:right;'><b>" + currCand["votes"] + "</b>&nbsp;<small>(" + currCand["percentageVotes"] + "%)</small></td></tr>";
+                        rowText += "<tr><td align='left'><img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(currCand["color"],0.7) + ";'>&nbsp;<small>" + currCand["name"] + "</small></td><td style='text-align:right;'><b>" + currCand["votes"] + "</b>&nbsp;<small>(" + currCand["percentageVotes"] + "%)</small></td></tr>";
                     }
-                    //var appendedText = "<tr><td align='left'><img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(notReportedColor,0.7) + ";'>&nbsp;<small>" + "Not Reported" + "</small></td><td style='text-align:right;'></td></tr>";
-                    //appendedText += "<tr><td align='left'><img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(vbmColor,0.7) + ";'>&nbsp;<small>" + "Mandatory Vote by Mail" + "</small></td><td style='text-align:right;'></td></tr>";
-                    var appendedText = "<tr><td align='left'><img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(tiedVoteColor,0.7) + ";'>&nbsp;<small>" + "Vote Tied" + "</small></td><td style='text-align:right;'></td></tr>";
+                    //var appendedText = "<tr><td align='left'><img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(notReportedColor,0.7) + ";'>&nbsp;<small>" + "Not Reported" + "</small></td><td style='text-align:right;'></td></tr>";
+                    //appendedText += "<tr><td align='left'><img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(vbmColor,0.7) + ";'>&nbsp;<small>" + "Mandatory Vote by Mail" + "</small></td><td style='text-align:right;'></td></tr>";
+                    var appendedText = "<tr><td align='left'><img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(tiedVoteColor,0.7) + ";'>&nbsp;<small>" + "Vote Tied" + "</small></td><td style='text-align:right;'></td></tr>";
                     //var outCountyText = "*************************************************** This contest includes areas that expand beyond Boulder County. For complete election results for this contest, visit the Secretary of State's election results<a href='http://results.enr.clarityelections.com/CO/63746/183536/Web01/en/summary.html'>Secretary of State's Results</a>***************************************************";
                     var outCountyText = "<i>This contest extends beyond Boulder County. For complete results, visit the <a href='http://results.enr.clarityelections.com/CO/63746/183536/Web01/en/summary.html'>Secretary of State</a></i>";
                     if (rowText.length > 0) {
@@ -820,8 +843,16 @@
 
                 function yesNoVoteRace(raceId) {
                     var raceNameInfo = races[raceId];
-                    if (raceNameInfo["percentageNeededToPass"] > 0) {
-                        return true;
+                    var overallResults = raceNameInfo["overallResults"];
+                    //if (raceNameInfo["percentageNeededToPass"] > 0) {
+                    if (overallResults) {
+                        for (key in overallResults) {
+                             if (overallResults.hasOwnProperty(key)) {
+                                  var value = overallResults[key];
+                                  if (value.name == "YES/FOR" || value.name == "NO/AGAINST" || value.name == "For the Measure" || value.name == "Against the Measure") {                                                                      return true;
+                                  }
+                             }
+                        }
                     } else {
                         return false;
                     }
@@ -907,10 +938,10 @@
                             var reportedPct = "Not In This Race";
                             if (pctRpt == 100) {
                                 // Reported
-                                reportedPct = "<img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(precinctData["color"],0.7) + ";'>&nbsp;" + precinctData["category"] + " - 100%";
+                                reportedPct = "<img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(precinctData["color"],0.7) + ";'>&nbsp;" + precinctData["category"] + " - 100%";
                             } else {
                                 // Not reported or not in this race
-                                reportedPct = "<img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(precinctData["color"],0.7) + ";'>&nbsp;" + precinctData["category"];
+                                reportedPct = "<img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(precinctData["color"],0.7) + ";'>&nbsp;" + precinctData["category"];
                             }
                             paragraphSection = raceNameParagraphText(REGISTRATION_TURNOUT) + overallTitle + "<p align='left' style='padding-left:0px;'><B>" + reportedPct + "</b></p>" + lastUpdatedText();
                         }
@@ -932,7 +963,7 @@
                                     var x = raceCandidateListInDisplayOrder(precinctData);
                                     var cands = precinctData["candidates"];
                                     var sortedCandidatesList = raceCandidateListInDisplayOrder(precinctData);
-                                    paragraphSection = raceNameParagraphText(raceName["description"]) + consolidatedPrecinctText(graphic.attributes.PRECINCT) + totalVotesCastText(precinctData) + requiredVotesToPassText(raceId) + raceCandidatesText("precinctBox",sortedCandidatesList,false,raceId) + lastUpdatedText();
+                                    paragraphSection = raceNameParagraphText(raceName["description"]) + consolidatedPrecinctText(graphic.attributes.PRECINCT) + totalVotesCastText(precinctData) + requiredVotesToPassText(raceId) + raceCandidatesText("precinctBox",sortedCandidatesList,false,raceId) + lastUpdatedText(precinctData);
                                 }
                             } else {
                                 paragraphSection = "<p align='left' style='padding-left:0px;'>This precinct is not included in this race.</p>";
@@ -976,7 +1007,7 @@
                 function voteByMailText(raceNameText,precinctID) {
                     var homePrecinctsList = getHomePrecinctsList(precinctID);
                     var overallTitle = consolidatedPrecinctText(precinctID);
-                    var reportedPct = "<img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(vbmColor,0.7) + ";'>&nbsp;" + vbmMessage;
+                    var reportedPct = "<img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(vbmColor,0.7) + ";'>&nbsp;" + vbmMessage;
                     paragraphSection = raceNameParagraphText(raceNameText) + overallTitle + "<p align='left' style='padding-left:0px;'><B>" + reportedPct + "</b></p>";
                     var consolPrecinctsMsg = "Consolidated precinct " + homePrecinctsList + " contains less than 250 votes";
                     if (numberOfPrecincts(precinctID) > 1) {
@@ -990,15 +1021,19 @@
                     var homePrecinctsList = getHomePrecinctsList(precinctID);
                     var overallTitle = consolidatedPrecinctText(precinctID);
                     var sortedCandidatesList = raceCandidateListInDisplayOrder(precinctData);
-                    return raceNameParagraphText(raceNameText) + overallTitle + tiedVoteTextLine(precinctData) + totalVotesCastText(precinctData) + raceCandidatesText(sortedCandidatesList,false,raceId) + lastUpdatedText();
+                    return raceNameParagraphText(raceNameText) + overallTitle + tiedVoteTextLine(precinctData) + totalVotesCastText(precinctData) + raceCandidatesText(sortedCandidatesList,false,raceId) + lastUpdatedText(precinctData);
                 }
 
                 function totalVotesCastText(precinctData) {
-                    return "<p align='left' style='padding-left:0px;'><b>Total votes cast: " + totalVotes(precinctData["candidates"]) + "</b></p>";
+                    var activeVoters = "<p align='left' style='padding-left:0px;margin-top:0;margin-bottom:0;'>Active voters in precinct: " + totalVotes(precinctData["candidates"] + 100) + "</br>"
+                    var eligibleVoters = "Eligible to vote on contest: " + totalVotes(precinctData["candidates"] + 200) + "</br>"
+                    var votesCast = "<b>Total votes cast on contest: " + totalVotes(precinctData["candidates"]) + "</b>";
+                    return [activeVoters, eligibleVoters, votesCast].join("");
+
                 }
 
                 function tiedVoteTextLine(precinctData) {
-                    var tiedMsg = "<img src='/boco/ElectionResults2016/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(tiedVoteColor,0.7) + ";'>&nbsp;<font color='DarkRed'>" + tiedVoteMsg + "</font>";
+                    var tiedMsg = "<img src='/boco/ElectionResults2017/images/transparentPixel.png' class='img-candidate-swatch' style='background-color:" + convertHex(tiedVoteColor,0.7) + ";'>&nbsp;<font color='DarkRed'>" + tiedVoteMsg + "</font>";
                     return "<p align='left' style='padding-left:0px;'><B>" + tiedMsg + "</b></p>";
                 }
 
@@ -1007,15 +1042,19 @@
 
                 }
 
-                function lastUpdatedText() {
-                    return "<p align='right'><i>last updated " + lastUpdated + "</i></p>";
+                function lastUpdatedText(precinctData) {
+                    var totalUnderVotes = "<p align='left' style='padding-left:0px;margin-top:0;margin-bottom:0;'>Total Under Votes: " + totalVotes(precinctData["candidates"] + 100) + "</br>"
+                    var totalOverVotes = "Total Over Votes: " + totalVotes(precinctData["candidates"] + 200) + "</br>"
+                    var lastUpdatedText = "<p align='right'><i>last updated " + lastUpdated + "</i></p>";
+                    return [totalUnderVotes, totalOverVotes, lastUpdatedText].join("");
+                    //return "<p align='right'><i>last updated " + lastUpdated + "</i></p>";
                 }
 
                 function requiredVotesToPassText(raceId) {
                     if (yesNoVoteRace(raceId)) {
                         var raceNameInfo = races[raceId];
-                        var msg = raceNameInfo["percentagePassDisplayMessage"];
-                        return "<p align='left' style='padding-left:0px;'><b><font color='red'>" + raceNameInfo["percentagePassDisplayMessage"] + "</font></b></p>";
+                        //var msg = raceNameInfo["percentagePassDisplayMessage"];
+                        return ""; //"<p align='left' style='padding-left:0px;'><b><font color='red'>" + raceNameInfo["percentagePassDisplayMessage"] + "</font></b></p>";
                     } else {
                         return "";
                     }
@@ -1023,7 +1062,7 @@
 
                 function textWrappedInPanelDefinition(innerText) {
                     var part1 = "<div class='panel panel-default pull-left' style='padding-top:0px; padding-bottom:0px; border:none; box-shadow:none;'><div class='panel-body pull-left' style='width:auto; padding-left:0px; padding-top:0px; padding-bottom:0px; border:none; box-shadow:none; border-top:0 none;'>";
-                    var part2 = "</div></div>";
+                    var part2 = "<div></div>";
                     return part1 + innerText + part2;
                 }
 
@@ -1037,7 +1076,8 @@
                     $.ajax({
                         //url: "/boco/ElectionResults2016/json/electionResults.json",
                         //url: "/boco/ElectionResults2016/json/electionResultsBoulderTest20160929.json",
-                        url: "/boco/ElectionResults2016/json/json2016G.json",
+                        //url: "/boco/ElectionResults2017/json/json2016G.json",
+                        url: "/boco/ElectionResults2017/json/jsontest20170629.json",
                         type: "GET",
                         cache: false,
                         dataType: "json",
@@ -1057,7 +1097,7 @@
                                 //citiesFeatureLayerURL = data["citiesFeatureLayerURL"];
                                 //countyBoundaryFeatureLayerURL = data["countyBoundaryFeatureLayerURL"];
 
-                                precinctsFeatureLayerURL = "http://maps.bouldercounty.org/arcgis/rest/services/POLITICAL/PRECINCTS/MapServer/0",
+                                precinctsFeatureLayerURL = "http://maps.bouldercounty.org/arcgis/rest/services/POLITICAL/PRECINCTS_2016/MapServer/0",
                                         citiesFeatureLayerURL = "http://maps.bouldercounty.org/arcgis/rest/services/PLANNING/LUC_ZoningDistricts_DQMunicipalities/MapServer/0",
                                         countyBoundaryFeatureLayerURL = "http://maps.bouldercounty.org/arcgis/rest/services/POLITICAL/COUNTY/MapServer/0",
 
@@ -1101,9 +1141,10 @@
                     $.ajax({
                         type: "HEAD",
                         cache: false,
-                        //url: "/boco/ElectionResults2016/json/electionResults.json",
+                        //url: "/boco/ElectionResults2017/json/electionResults.json",
                         //url: "/boco/ElectionResults2016/json/electionResultsBoulderTest20160929.json",
-                        url: "/boco/ElectionResults2016/json/json2016G.json",
+                        //url: "/boco/ElectionResults2017/json/json2016G.json",
+                        url: "/boco/ElectionResults2017/json/jsontest20170629.json",
                         complete: function(xhr) {
                             lastFileUpdateTimestamp = xhr.getResponseHeader("Last-Modified");
                             if (savedLastFileUpdateTimestamp != lastFileUpdateTimestamp) {
@@ -1213,18 +1254,6 @@
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- Include all  plugins or individual files as needed -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89062543-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
 
 </body>
 </html>
