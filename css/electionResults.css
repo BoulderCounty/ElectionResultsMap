@@ -27,7 +27,7 @@ a:hover, a:active {
     left:0px;
     right:0px;
     height:95px;
-    background:#283239; //#003267;
+    background:#ffffff; //#003267;
 }
 
 #mapDiv {
@@ -68,21 +68,21 @@ a:hover, a:active {
     right: 50px;
     width:209px; /*width of your image*/
     height:55px; /*height of your image*/
-    background-image: url("/BocoElections2016/images/logo.png");
+    background-image: url("/boco/ElectionResults2017/images/logo.png");
 }
 
 .fbshare {
-    width:18px;
-    height:18px;
+    width:20px;
+    height:20px;
     position:absolute;
     margin-top:33px;
     margin-right:0px;
     right: 340px;
-    background-image: url("/BocoElections2016/images/facebook.png");
+    background-image: url("/boco/ElectionResults2017/images/facebookNew.png");
 }
 
 .fbshare:hover {
-    background-image: url("/BocoElections2016/images/facebookWhite.png");
+    background-image: url("/boco/ElectionResults2017/images/facebookWhite.png");
 }
 
 .fbshare:hover:after {
@@ -98,17 +98,17 @@ a:hover, a:active {
 }
 
 .twittershare {
-    width:20px;
+    width:24px;
     height:20px;
     position:absolute;
     margin-top:33px;
     margin-right:0px;
     right: 310px;
-    background-image: url("/BocoElections2016/images/twitter.png");
+    background-image: url("/boco/ElectionResults2017/images/twitter.png");
 }
 
 .twittershare:hover {
-    background-image: url("/BocoElections2016/images/twitterWhite.png");
+    background-image: url("/boco/ElectionResults2017/images/twitterBlack.png");
 }
 
 .twittershare:hover:after {
@@ -123,9 +123,32 @@ a:hover, a:active {
     border-radius: 5px;
 }
 
+.bitlyshare {
+    width:20px;
+    height:20px;
+    position:absolute;
+    margin-top:33px;
+    margin-right:0px;
+    right: 280px;
+    background-image: url("/boco/ElectionResults2017/images/bitlyLogo.png");
+}
+
+.bitlyshare:hover:after {
+    user-select: text; 
+    content: "http://bit.ly/2tVugmW";
+    display: block;
+    position: relative;
+    top: 20px;
+    right: -2px;
+    width: 130px;
+    color: black;
+    background-color: lightgray;
+    border-radius: 5px;
+}
+
 .HeaderTitle {
     position:absolute;
-    color:white;
+    color:#0B77BD;
     margin-top:-1px;
     margin-left:0px;
     top:40px;
@@ -143,7 +166,7 @@ span.glyphicon-cog {
     position: absolute;
     background:none;
     box-shadow:none;
-    color:white;
+    color:darkgray;
     outline: 0 none;
     border: 0 none;
 }
@@ -288,17 +311,17 @@ and (min-device-width : 320px) {
         margin-top:33px;
         margin-right:0px;
         right: 50px;
-        background-image: url("/BocoElections2016/images/facebook.png");
+        background-image: url("/boco/ElectionResults2017/images/facebookNew.png");
     }
 
     .twittershare {
-        width:20px;
+        width:24px;
         height:20px;
         position:absolute;
         margin-top:33px;
         margin-right:0px;
         right: 15px;
-        background-image: url("/BocoElections2016/images/twitter.png");
+        background-image: url("/boco/ElectionResults2017/images/twitter.png");
     }
 
     .navbar-logo {
@@ -336,17 +359,17 @@ and (min-device-height : 568px) {
         margin-top:33px;
         margin-right:0px;
         right: 50px;
-        background-image: url("/BocoElections2016/images/facebook.png");
+        background-image: url("/boco/ElectionResults2017/images/facebookNew.png");
     }
 
     .twittershare {
-        width:20px;
+        width:24px;
         height:20px;
         position:absolute;
         margin-top:33px;
         margin-right:0px;
         right: 15px;
-        background-image: url("/BocoElections2016/images/twitter.png");
+        background-image: url("/boco/ElectionResults2017/images/twitter.png");
     }
 
     .navbar-logo {
@@ -384,17 +407,17 @@ and (min-device-width : 375px) {
         margin-top:33px;
         margin-right:0px;
         right: 50px;
-        background-image: url("/BocoElections2016/images/facebook.png");
+        background-image: url("/boco/ElectionResults2017/images/facebookNew.png");
     }
 
     .twittershare {
-        width:20px;
+        width:24px;
         height:20px;
         position:absolute;
         margin-top:33px;
         margin-right:0px;
         right: 15px;
-        background-image: url("/BocoElections2016/images/twitter.png");
+        background-image: url("/boco/ElectionResults2017/images/twitter.png");
     }
 
     .navbar-logo {
@@ -431,17 +454,17 @@ and (min-device-width : 414px) {
         margin-top:33px;
         margin-right:0px;
         right: 50px;
-        background-image: url("/BocoElections2016/images/facebook.png");
+        background-image: url("/boco/ElectionResults2017/images/facebookNew.png");
     }
 
     .twittershare {
-        width:20px;
+        width:24px;
         height:20px;
         position:absolute;
         margin-top:33px;
         margin-right:0px;
         right: 15px;
-        background-image: url("/BocoElections2016/images/twitter.png");
+        background-image: url("/boco/ElectionResults2017/images/twitter.png");
     }
 
     .navbar-logo {
@@ -470,7 +493,7 @@ and (min-device-width : 415px) {
 
     .HeaderTitle {
         position:absolute;
-        color:white;
+        color:#0B77BD;
         margin-top:-1px;
         margin-left:0px;
         top:40px;
@@ -485,17 +508,27 @@ and (min-device-width : 415px) {
         margin-top:33px;
         margin-right:0px;
         right: 340px;
-        background-image: url("/BocoElections2016/images/facebook.png");
+        background-image: url("/boco/ElectionResults2017/images/facebookNew.png");
     }
 
     .twittershare {
-        width:20px;
+        width:24px;
         height:20px;
         position:absolute;
         margin-top:33px;
         margin-right:0px;
         right: 310px;
-        background-image: url("/BocoElections2016/images/twitter.png");
+        background-image: url("/boco/ElectionResults2017/images/twitter.png");
+    }
+
+    .bitlyshare {
+        width:20px;
+        height:20px;
+        position:absolute;
+        margin-top:33px;
+        margin-right:0px;
+        right: 280px;
+        background-image: url("/boco/ElectionResults2017/images/bitlyLogo.png");
     }
 
     .navbar-logo {
@@ -505,7 +538,7 @@ and (min-device-width : 415px) {
         right: 50px;
         width:209px; /*width of your image*/
         height:55px; /*height of your image*/
-        background-image: url("/BocoElections2016/images/logo.png");
+        background-image: url("/boco/ElectionResults2017/images/logo.png");
         display: block;
     }
 
