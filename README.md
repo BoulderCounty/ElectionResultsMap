@@ -1,6 +1,6 @@
 # ElectionResultsMap
 This is a simple election results viewer map, showing vote counts by precinct.
-It was built off of the Alameda County, California elections results viewer map. Many thanks to Alameda County and Darren Venn in particular. The biggest change we made was to remove the live election results reporting, since we only needed to display the official results after they had been certified. We also tweaked colors, logos, and of course the obvious -- precinct boundaries and local elections that were being reported.
+It was built off of the Alameda County, California elections results viewer map. Many thanks to Alameda County and Darren Venn in particular. The biggest change we made was to remove the live election results reporting, since we only needed to display the official results after they had been certified. We also tweaked colors, legends, logos, and of course the obvious -- precinct boundaries and local elections that were being reported.
 It uses the ESRI JS API, along with Boulder County Precinct boundary layers (polygons) held as ArcGIS Feature layers, as well as layers for the cities and the county boundary.
 Following the pattern of Alameda County, in order to have fast response times when using the map, we created a separate file that contains the results, json2016G.json. When the map loads, these results are combined with the precinct layers, and the color and popup for each precinct is set -- these values come from the json20190123.json file. 
 When you change to a new race, the results are reloaded for each polygon.
